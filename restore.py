@@ -38,7 +38,7 @@ def step1_0(my_cube):
 			my_cube.rotation(my_cube.sides[color].left, 'r', PRINT_OUT)
 			my_cube.rotation(my_cube.sides[color].left, 'r', PRINT_OUT)
 		else:
-			raise ErrorCube
+			raise ValueError("不正确的魔方")
 
 	while True:
 		if my_cube.sides['yellow'].content[0][1] == 0:
@@ -60,7 +60,7 @@ def step1_0(my_cube):
 		# 	my_cube.rotation(my_cube.sides['red'],'r')
 		# 	my_cube.rotation(my_cube.sides['red'],'r')
 		# else:
-		# 	raise ErrorCube
+		# 	raise ValueError("不正确的魔方")
 
 		elif my_cube.sides['yellow'].content[1][0] == 0:
 			step1_0_0('red')
@@ -102,7 +102,7 @@ def step1_1(my_cube):
 			my_cube.rotation(my_cube.sides[color], 'l', PRINT_OUT)
 			pass
 		else:
-			raise ErrorCube
+			raise ValueError("不正确的魔方")
 
 	while True:
 		if my_cube.sides["red"].content[2][1] == 0:
@@ -224,7 +224,11 @@ def step1(my_cube):
 	:param my_cube:
 	:return:
 	"""
+	i = 0
 	while True:
+		i += 1
+		if i > 5000:
+			raise ValueError("不正确的魔方")
 		if cross(my_cube):
 			break
 		step1_0(my_cube)
@@ -290,7 +294,11 @@ def step2_1(my_cube):
 
 	side_colors = ["red", "blue", "green", "orange"]
 	flag = True
+	i = 0
 	while flag:
+		i += 1
+		if i > 5000:
+			raise ValueError("不正确的魔方")
 		flag = False
 		for color in side_colors:
 			if my_cube.sides[color].content[2][0] == 0:
@@ -308,7 +316,7 @@ def step2_1(my_cube):
 					my_cube.rotation(my_cube.sides['yellow'], 'l', PRINT_OUT)
 					step2_1_0(my_cube, my_cube.sides[color].left.color)
 				else:
-					raise ErrorCube
+					raise ValueError("不正确的魔方")
 			elif my_cube.sides[color].content[2][2] == 0:
 				flag = True
 				if my_cube.sides[color].right.content[2][0] == my_cube.sides[color].right.content[1][1]:
@@ -324,7 +332,7 @@ def step2_1(my_cube):
 					my_cube.rotation(my_cube.sides['yellow'], 'l', PRINT_OUT)
 					step2_1_1(my_cube, my_cube.sides[color].left.color)
 				else:
-					raise ErrorCube
+					raise ValueError("不正确的魔方")
 
 
 def step2_2(my_cube):
@@ -340,7 +348,11 @@ def step2_2(my_cube):
 		my_cube.rotation(my_cube.sides[color], 'l', PRINT_OUT)
 
 	flag = True
+	i = 0
 	while flag:
+		i += 1
+		if i > 5000:
+			raise ValueError("不正确的魔方")
 		flag = False
 		n = 0
 		if my_cube.sides['yellow'].content[0][0] == 0:
@@ -353,7 +365,7 @@ def step2_2(my_cube):
 					if up_conner_finish(my_cube, 0, 2, 'orange'):
 						n = 3
 						if up_conner_finish(my_cube, 0, 0, 'green'):
-							raise ErrorCube
+							raise ValueError("不正确的魔方")
 			if n == 1:
 				my_cube.rotation(my_cube.sides['yellow'], 'r', PRINT_OUT)
 				color = my_cube.sides[color].right.color
@@ -376,7 +388,7 @@ def step2_2(my_cube):
 					if up_conner_finish(my_cube, 0, 0, 'green'):
 						n = 3
 						if up_conner_finish(my_cube, 2, 0, 'red'):
-							raise ErrorCube
+							raise ValueError("不正确的魔方")
 			if n == 1:
 				my_cube.rotation(my_cube.sides['yellow'], 'r', PRINT_OUT)
 				color = my_cube.sides[color].right.color
@@ -399,7 +411,7 @@ def step2_2(my_cube):
 					if up_conner_finish(my_cube, 2, 0, 'red'):
 						n = 3
 						if up_conner_finish(my_cube, 2, 2, 'blue'):
-							raise ErrorCube
+							raise ValueError("不正确的魔方")
 			if n == 1:
 				my_cube.rotation(my_cube.sides['yellow'], 'r', PRINT_OUT)
 				color = my_cube.sides[color].right.color
@@ -422,7 +434,7 @@ def step2_2(my_cube):
 					if up_conner_finish(my_cube, 2, 2, 'blue'):
 						n = 3
 						if up_conner_finish(my_cube, 0, 2, 'orange'):
-							raise ErrorCube
+							raise ValueError("不正确的魔方")
 			if n == 1:
 				my_cube.rotation(my_cube.sides['yellow'], 'r', PRINT_OUT)
 				color = my_cube.sides[color].right.color
@@ -440,7 +452,11 @@ def step2_2(my_cube):
 
 def step2_3(my_cube):
 	flag = True
+	i = 0
 	while flag:
+		i += 1
+		if i > 5000:
+			raise ValueError("不正确的魔方")
 		a = up_conner_finish(my_cube, 0, 0, 'green')
 		b = up_conner_finish(my_cube, 0, 2, 'orange')
 		c = up_conner_finish(my_cube, 2, 2, 'blue')
@@ -503,7 +519,11 @@ def algorithm3(my_cube, side_color, direction):
 
 def step3_1(my_cube):
 	side_colors = ["red", "blue", "green", "orange"]
+	i = 0
 	while True:
+		i += 1
+		if i > 5000:
+			raise ValueError("不正确的魔方")
 		block_color2 = ""
 		for side_color in side_colors:
 			if my_cube.sides[side_color].content[2][1] == my_cube.sides[side_color].content[1][1]:
@@ -542,7 +562,7 @@ def step3_1(my_cube):
 				else:
 					block_color2 = side_colors[my_cube.sides["yellow"].content[1][0] - 1]
 			else:
-				raise ErrorCube
+				raise ValueError("不正确的魔方")
 
 			if n == 1:
 				my_cube.rotation(my_cube.sides['yellow'], 'r', PRINT_OUT)
@@ -557,7 +577,7 @@ def step3_1(my_cube):
 			elif my_cube.sides[block_color].left.color == block_color2:
 				direction = "l"
 			else:
-				raise ErrorCube
+				raise ValueError("不正确的魔方")
 
 			algorithm3(my_cube, block_color, direction)
 
@@ -621,7 +641,7 @@ def algorithm4_2(my_cube, color, direction):
 		my_cube.rotation(my_cube.sides['yellow'], 'r', PRINT_OUT)
 		my_cube.rotation(my_cube.sides[color], 'l', PRINT_OUT)
 	else:
-		raise ErrorDirection
+		raise ValueError("方向错误")
 
 
 def judge_center_point(my_cube):
@@ -762,7 +782,11 @@ def step4(my_cube):
 			如果不是一字
 				按点处理
 	"""
+	i = 0
 	while True:
+		i += 1
+		if i > 5000:
+			raise ValueError("不正确的魔方")
 		if judge_top_finished(my_cube):
 			break
 		is_cross_plus = judge_cross_plus(my_cube)
@@ -833,7 +857,7 @@ def judge_bottom_conner(my_cube):
 					return my_cube.sides[color].left.color, 'r'
 		return 'red', 'l'
 	else:
-		raise ErrorCUbe
+		raise ValueError("不正确的魔方")
 
 
 def algorithm5_1(my_cube, color, direction):
@@ -845,7 +869,7 @@ def algorithm5_1(my_cube, color, direction):
 		color = my_cube.sides[color].right.color
 		direction = "r"
 	else:
-		raise ErrorDirection
+		raise ValueError("方向错误")
 	algorithm4_2(my_cube, color, direction)
 
 
@@ -900,7 +924,11 @@ def step5(my_cube):
 	:param my_cube:
 	:return:
 	"""
+	i = 0
 	while True:
+		i += 1
+		if i > 5000:
+			raise ValueError("不正确的魔方")
 		a = judge_finished(my_cube)
 		if a:
 			break
@@ -936,6 +964,8 @@ def restore(my_cube):
 	# my_cube = Cube()
 	# my_cube.upset()  # print_out=True)
 	# print(my_cube)
+	my_cube.steps={}
+	my_cube.step_count=0
 	step1(my_cube)
 	# print(my_cube)
 	step2(my_cube)
@@ -948,6 +978,12 @@ def restore(my_cube):
 	# print(my_cube)
 	# print(my_cube.steps.keys())
 	return my_cube.steps
+
+
+def gen_cube():
+	my_cube = Cube()
+	my_cube.upset()
+	return my_cube
 
 
 if __name__ == '__main__':

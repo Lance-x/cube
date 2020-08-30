@@ -88,6 +88,8 @@ class Cube(object):
 	def rotation(self, color: Side, direction, print_out: bool = False):
 		if self.step_count==0:
 			self.steps[self.step_count] = ("ini_status", deepcopy(str(self)))
+		elif self.step_count>1000:
+			raise ValueError("不正确的魔方")
 		if direction == 'r':
 			color.content = color.content[::-1]
 			a = zip(*color.content)
