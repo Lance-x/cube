@@ -57,7 +57,9 @@ class MyPanel(wx.Panel):
 		exit(0)
 
 	def calculate(self, event):
-		self.gui_to_cube()
+		input_cub = self.gui_to_cube()
+		if not input_cub:
+			return
 		try:
 			re_steps = restore(self.cube)
 		except ValueError as e:
@@ -68,7 +70,7 @@ class MyPanel(wx.Panel):
 		for key in re_steps:
 			out_put = out_put + re_steps[key][0] + " "
 		self.result.SetValue(out_put)
-		print(out_put)
+		# print(out_put)
 
 	# self.result.SetValue("")
 	def cube_to_gui(self):
@@ -91,13 +93,18 @@ class MyPanel(wx.Panel):
 					if i == j == 1:
 						self.cube.sides[color].content[i][j] = side_colors.get(color)
 						continue
+					if self.content[k].GetValue()=="":
+						wx.MessageBox("输入不完整")
+						return False
 					if ord("0") <= ord(self.content[k].GetValue()) <= ord("6"):
 						self.cube.sides[color].content[i][j] = eval(self.content[k].GetValue())
 						k += 1
 					else:
 						self.cube = Cube()
 						wx.MessageBox("输入错误")
-		print(self.cube)
+						return False
+		return True
+		# print(self.cube)
 
 
 if __name__ == '__main__':
