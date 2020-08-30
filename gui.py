@@ -44,7 +44,7 @@ class MyPanel(wx.Panel):
 		self.button2.Bind(wx.EVT_BUTTON, self.calculate)
 		self.button3 = wx.Button(self.bitmap, 3, label='关闭', pos=(650, 450))
 		self.button3.Bind(wx.EVT_BUTTON, self.colse)
-		self.result = wx.TextCtrl(self.bitmap, -1, pos=(410, 25), size=(380, 150),
+		self.result = wx.TextCtrl(self.bitmap, -1, pos=(410, 25), size=(380, 155),
 								  style=wx.TE_MULTILINE | wx.TE_READONLY | wx.TE_RICH2)
 
 	def load(self, event):
