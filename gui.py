@@ -3,7 +3,8 @@ from restore import *
 
 
 class MyPanel(wx.Panel):
-	result=''
+	result = ''
+
 	def __init__(self, parent, id):
 		wx.Panel.__init__(self, parent, id)
 		image_file = 'cube1.png'
@@ -43,7 +44,8 @@ class MyPanel(wx.Panel):
 		self.button2.Bind(wx.EVT_BUTTON, self.calculate)
 		self.button3 = wx.Button(self.bitmap, 3, label='关闭', pos=(650, 450))
 		self.button3.Bind(wx.EVT_BUTTON, self.colse)
-		self.result = wx.TextCtrl(self.bitmap, -1, pos=(410, 25), size=(380, 150), style=wx.TE_MULTILINE|wx.TE_READONLY|wx.TE_RICH2)
+		self.result = wx.TextCtrl(self.bitmap, -1, pos=(410, 25), size=(380, 150),
+								  style=wx.TE_MULTILINE | wx.TE_READONLY | wx.TE_RICH2)
 
 	def load(self, event):
 		self.cube = gen_cube()
@@ -57,17 +59,18 @@ class MyPanel(wx.Panel):
 	def calculate(self, event):
 		self.gui_to_cube()
 		try:
-			re_steps=restore(self.cube)
+			re_steps = restore(self.cube)
 		except ValueError as e:
 			wx.MessageBox("不正确的魔方")
 			return
 		# result.SetStyle(0,0,wx.MULTILINE)
-		out_put="计算成功，共用 {} 步,还原步骤如下：\n".format(self.cube.step_count)
+		out_put = "计算成功，共用 {} 步,还原步骤如下：\n".format(self.cube.step_count)
 		for key in re_steps:
-			out_put =out_put + re_steps[key][0]+" "
+			out_put = out_put + re_steps[key][0] + " "
 		self.result.SetValue(out_put)
 		print(out_put)
-		# self.result.SetValue("")
+
+	# self.result.SetValue("")
 	def cube_to_gui(self):
 		side_colors = ["white", "red", "blue", "orange", "green", "yellow"]
 		k = 0

@@ -7,10 +7,9 @@ class Cube(object):
 	sides = {}
 	steps = {}
 	step_count = 0
-	step_dic={('white','r'):"U",('white','l'):"U'",('yellow','r'):"D",('yellow','l'):"D'",
-			  ('red','r'):"L",('red','l'):"L'",('orange','r'):"R",('orange','l'):"R'",
-			  ('green','r'):"F",('green','l'):"F'",('blue','r'):"B",('blue','l'):"B'"}
-
+	step_dic = {('white', 'r'): "U", ('white', 'l'): "U'", ('yellow', 'r'): "D", ('yellow', 'l'): "D'",
+				('red', 'r'): "L", ('red', 'l'): "L'", ('orange', 'r'): "R", ('orange', 'l'): "R'",
+				('green', 'r'): "F", ('green', 'l'): "F'", ('blue', 'r'): "B", ('blue', 'l'): "B'"}
 
 	def __init__(self, list2=None):
 		self.sides["white"] = Side(0, 'white')
@@ -86,9 +85,9 @@ class Cube(object):
 		return my_str
 
 	def rotation(self, color: Side, direction, print_out: bool = False):
-		if self.step_count==0:
+		if self.step_count == 0:
 			self.steps[self.step_count] = ("ini_status", deepcopy(str(self)))
-		elif self.step_count>1000:
+		elif self.step_count > 1000:
 			raise ValueError("不正确的魔方")
 		if direction == 'r':
 			color.content = color.content[::-1]
@@ -217,7 +216,7 @@ class Cube(object):
 					color.left.content[0][2], color.left.content[1][2], color.left.content[2][2]
 		else:
 			print("error!!")
-		if self.step_count>=0:
+		if self.step_count >= 0:
 			self.step_count += 1
 			self.steps[self.step_count] = (self.step_dic[(color.color, direction)], deepcopy(str(self)))
 		if print_out:
@@ -227,13 +226,13 @@ class Cube(object):
 	def upset(self, times: int = 100, print_out: bool = False):
 		colors = ["white", "red", "blue", "green", "orange", "yellow"]
 		directions = ["r", "l"]
-		self.step_count=-1
+		self.step_count = -1
 		for i in range(times):
 			color = colors[randint(0, 5)]
 			direction = directions[randint(0, 1)]
 			# print(color, direction)
 			self.rotation(self.sides[color], direction, print_out)
-		self.step_count=0
+		self.step_count = 0
 
 
 if __name__ == '__main__':

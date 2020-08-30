@@ -964,8 +964,8 @@ def restore(my_cube):
 	# my_cube = Cube()
 	# my_cube.upset()  # print_out=True)
 	# print(my_cube)
-	my_cube.steps={}
-	my_cube.step_count=0
+	my_cube.steps = {}
+	my_cube.step_count = 0
 	step1(my_cube)
 	# print(my_cube)
 	step2(my_cube)
