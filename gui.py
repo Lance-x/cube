@@ -6,8 +6,9 @@ class MyPanel(wx.Panel):
 	result = ''
 
 	def __init__(self, parent, id):
+		self.side_colors = ["white", "red", "blue", "orange", "green", "yellow"]
 		wx.Panel.__init__(self, parent, id)
-		image_file = 'cube1.png'
+		image_file = 'cube5.png'
 		try:
 			to_bmp_image = wx.Image(image_file, wx.BITMAP_TYPE_ANY).ConvertToBitmap()
 			self.bitmap = wx.StaticBitmap(self, -1, to_bmp_image, (0, 0))
@@ -23,29 +24,50 @@ class MyPanel(wx.Panel):
 		self.content = []
 		for k in range(6):
 			if k == 0:
-				x, y = 220, 25
+				x, y = 213, 20
 			elif 1 <= k <= 4:
-				x, y = 192 * k - 164, 190
+				x, y = 192 * k - 171, 185
 			else:
-				x, y = 220, 355
+				x, y = 213, 350
 			for j in range(3):
 				for i in range(3):
-					if i == 1 and j == 1:
+					if i == j == 1:
 						continue
 					self.content.append(
-						wx.TextCtrl(self.bitmap, -1, pos=(x + 65 * i, y + 55 * j), size=(50, 45), style=wx.TE_CENTER))
+						wx.TextCtrl(self.bitmap, -1, pos=(x + 64 * i, y + 55 * j), size=(64, 55), style=wx.TE_CENTER))
 					self.content[-1].SetMaxLength(1)
 					font1 = wx.Font(30, wx.MODERN, wx.BOLD, wx.NORMAL, False, 'Calibri')
 					self.content[-1].SetFont(font1)
+					self.content[-1].Bind(wx.EVT_TEXT, lambda evt,wh=self.content[-1]:self.set_color(evt,wh))
+					self.content[-1].SetBackgroundColour("rgb(211,211,211)")
 
-		self.button1 = wx.Button(self.bitmap, 1, label='随机生成', pos=(450, 450))
+		self.button1 = wx.Button(self.bitmap, -1, label='随机生成', pos=(450, 450))
 		self.button1.Bind(wx.EVT_BUTTON, self.load)
-		self.button2 = wx.Button(self.bitmap, 2, label='开始计算', pos=(550, 450))
+		self.button2 = wx.Button(self.bitmap, -1, label='开始计算', pos=(550, 450))
 		self.button2.Bind(wx.EVT_BUTTON, self.calculate)
-		self.button3 = wx.Button(self.bitmap, 3, label='关闭', pos=(650, 450))
+		self.button3 = wx.Button(self.bitmap, -1, label='关闭', pos=(100, 450))
 		self.button3.Bind(wx.EVT_BUTTON, self.colse)
+		self.button4 = wx.Button(self.bitmap, -1, label='清空', pos=(650, 450))
+		self.button4.Bind(wx.EVT_BUTTON, self.clean)
 		self.result = wx.TextCtrl(self.bitmap, -1, pos=(410, 25), size=(380, 155),
 								  style=wx.TE_MULTILINE | wx.TE_READONLY | wx.TE_RICH2)
+	def clean(self,event):
+		for i in self.content:
+			i.SetValue("")
+
+	def set_color(self,evt,wh):
+		if wh.GetValue()=="":
+			wh.SetBackgroundColour("rgb(211,211,211)")
+		elif ord("0") <= ord(wh.GetValue()) < ord("6"):
+			if eval(wh.GetValue())==4:
+				wh.SetBackgroundColour("rgb(255,165,0)")
+			elif eval(wh.GetValue())==3:
+				wh.SetBackgroundColour("green")
+			else:
+				wh.SetBackgroundColour(self.side_colors[eval(wh.GetValue())])
+		else:
+			wh.SetBackgroundColour("gray")
+		pass
 
 	def load(self, event):
 		self.cube = gen_cube()
@@ -74,29 +96,29 @@ class MyPanel(wx.Panel):
 
 	# self.result.SetValue("")
 	def cube_to_gui(self):
-		side_colors = ["white", "red", "blue", "orange", "green", "yellow"]
 		k = 0
-		for color in side_colors:
+		for color in self.side_colors:
 			for i in range(3):
 				for j in range(3):
 					if i == j == 1:
 						continue
 					self.content[k].SetValue(str(self.cube.sides[color].content[i][j]))
+					# self.content[k].SetBackgroundColour(self.side_colors[self.cube.sides[color].content[i][j]])
 					k += 1
 
 	def gui_to_cube(self):
-		side_colors = {"white": 0, "red": 1, "blue": 2, "orange": 4, "green": 3, "yellow": 5}
+		side_colors_dic = {"white": 0, "red": 1, "blue": 2, "orange": 4, "green": 3, "yellow": 5}
 		k = 0
-		for color in side_colors:
+		for color in side_colors_dic:
 			for i in range(3):
 				for j in range(3):
 					if i == j == 1:
-						self.cube.sides[color].content[i][j] = side_colors.get(color)
+						self.cube.sides[color].content[i][j] = side_colors_dic.get(color)
 						continue
 					if self.content[k].GetValue()=="":
 						wx.MessageBox("输入不完整")
 						return False
-					if ord("0") <= ord(self.content[k].GetValue()) <= ord("6"):
+					if ord("0") <= ord(self.content[k].GetValue()) < ord("6"):
 						self.cube.sides[color].content[i][j] = eval(self.content[k].GetValue())
 						k += 1
 					else:

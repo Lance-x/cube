@@ -7,7 +7,7 @@ class Cube(object):
 	sides = {}
 	steps = {}
 	step_count = 0
-	step_dic = {('white', 'U'): "U", ('white', 'l'): "U'", ('yellow', 'r'): "D", ('yellow', 'l'): "D'",
+	step_dic = {('white', 'r'): "U", ('white', 'l'): "U'", ('yellow', 'r'): "D", ('yellow', 'l'): "D'",
 				('red', 'r'): "L", ('red', 'l'): "L'", ('orange', 'r'): "R", ('orange', 'l'): "R'",
 				('green', 'r'): "F", ('green', 'l'): "F'", ('blue', 'r'): "B", ('blue', 'l'): "B'"}
 
