@@ -7,9 +7,9 @@ class Cube(object):
 	sides = {}
 	steps = {}
 	step_count = 0
-	step_dic = {('white', 'r'): "U", ('white', 'l'): "U'", ('yellow', 'r'): "D", ('yellow', 'l'): "D'",
-				('red', 'r'): "L", ('red', 'l'): "L'", ('orange', 'r'): "R", ('orange', 'l'): "R'",
-				('green', 'r'): "F", ('green', 'l'): "F'", ('blue', 'r'): "B", ('blue', 'l'): "B'"}
+	step_dic = {('white', 'r'): "U", ('white', 'l'): "u", ('yellow', 'r'): "D", ('yellow', 'l'): "d",
+				('red', 'r'): "L", ('red', 'l'): "l", ('orange', 'r'): "R", ('orange', 'l'): "r",
+				('green', 'r'): "F", ('green', 'l'): "f", ('blue', 'r'): "B", ('blue', 'l'): "b"}
 
 	def __init__(self, list2=None):
 		self.sides["white"] = Side(0, 'white')

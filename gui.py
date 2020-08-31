@@ -49,9 +49,22 @@ class MyPanel(wx.Panel):
 		self.button3.Bind(wx.EVT_BUTTON, self.colse)
 		self.button4 = wx.Button(self.bitmap, -1, label='清空', pos=(650, 450))
 		self.button4.Bind(wx.EVT_BUTTON, self.clean)
-		self.result = wx.TextCtrl(self.bitmap, -1, pos=(410, 25), size=(380, 155),
+		self.result = wx.TextCtrl(self.bitmap, -1, pos=(410, 21), size=(379, 158),
 								  style=wx.TE_MULTILINE | wx.TE_READONLY | wx.TE_RICH2)
+
+		readme="使用说明：\n"
+		readme+="可以在每个小块处输入颜色，\n" \
+				"颜色用数字代替，对应方式下\n" \
+				"面列出，或者使用“随机生成”\n" \
+				"按钮生成一个随机打乱的魔方。\n" \
+				"点击“开始计算”按钮右上角会\n" \
+				"显示还原步骤。\n\n" \
+				"白色：0，红色：1，蓝色：2\n" \
+				"绿色：3，橙色：4，黄色：5"
+		wx.StaticText(self.bitmap, -1, label=readme,
+					  pos=(22, 21))
 	def clean(self,event):
+		self.result.SetValue("")
 		for i in self.content:
 			i.SetValue("")
 
@@ -89,8 +102,13 @@ class MyPanel(wx.Panel):
 			return
 		# result.SetStyle(0,0,wx.MULTILINE)
 		out_put = "计算成功，共用 {} 步,还原步骤如下：\n".format(self.cube.step_count)
-		for key in re_steps:
-			out_put = out_put + re_steps[key][0] + " "
+		out_readme = "\n大写字母表示顺时针，小写字母表示逆时针，\n" \
+				  "U：Up表顶面（白），D：Down表底面（黄），\n" \
+				  "L：Left表左面（红），R：Right表右面（橙），\n" \
+				  "F：Forward表前面（绿），B：Back表后面（蓝）"
+		for key in list(re_steps.keys())[1:]:
+			out_put += re_steps[key][0]
+		out_put += out_readme
 		self.result.SetValue(out_put)
 		# print(out_put)
 
